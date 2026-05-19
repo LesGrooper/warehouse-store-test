@@ -1,0 +1,2693 @@
+{
+  "info": {
+    "name": "Inventory Management System Api",
+    "description": "API untuk Sistem Manajemen Inventori",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"token\", jsonData.access_token);",
+                  "    pm.environment.set(\"token_type\", jsonData.token_type);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "Get All Accounts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/accounts?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "accounts"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Account By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/accounts/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "accounts", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Account Name\",\n  \"description\": \"Account Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/accounts",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "accounts"]
+            }
+          }
+        },
+        {
+          "name": "Update Account",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Account Name\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/accounts/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "accounts", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Account",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/accounts/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "accounts", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Account",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/accounts/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "accounts", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Account",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/accounts/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "accounts", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Brands",
+      "item": [
+        {
+          "name": "Get All Brands",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/brands?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "brands"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Brand By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/brands/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "brands", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Brand",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Brand Name\",\n  \"description\": \"Brand Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/brands",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "brands"]
+            }
+          }
+        },
+        {
+          "name": "Update Brand",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Brand Name\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/brands/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "brands", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Brand",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/brands/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "brands", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Brand",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/brands/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "brands", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Brand",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/brands/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "brands", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/categories?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Category By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/categories/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Category Name\",\n  \"description\": \"Category Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/categories",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Category Name\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/categories/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/categories/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/categories/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/categories/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Product By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category_id\": 1,\n  \"brand_id\": 1,\n  \"unit_type_id\": 1,\n  \"name\": \"Product Name\",\n  \"description\": \"Product Description\",\n  \"price\": 100.00,\n  \"attributes\": [\n    {\n      \"attribute_id\": 1,\n      \"attribute_value_id\": 1\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category_id\": 1,\n  \"brand_id\": 1,\n  \"unit_type_id\": 1,\n  \"name\": \"Updated Product Name\",\n  \"description\": \"Updated Description\",\n  \"price\": 150.00,\n  \"attributes\": [\n    {\n      \"attribute_id\": 1,\n      \"attribute_value_id\": 2\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Warehouses",
+      "item": [
+        {
+          "name": "Get All Warehouses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/warehouses?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warehouses"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Warehouse By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/warehouses/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warehouses", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Warehouse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Warehouse Name\",\n  \"location\": \"Warehouse Location\",\n  \"description\": \"Warehouse Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/warehouses",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warehouses"]
+            }
+          }
+        },
+        {
+          "name": "Update Warehouse",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Warehouse Name\",\n  \"location\": \"Updated Location\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/warehouses/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warehouses", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Warehouse",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/warehouses/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warehouses", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Warehouse",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/warehouses/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warehouses", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Warehouse",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/warehouses/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "warehouses", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suppliers",
+      "item": [
+        {
+          "name": "Get All Suppliers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/suppliers?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Supplier By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Supplier",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Supplier Name\",\n  \"contact\": \"Supplier Contact\",\n  \"address\": \"Supplier Address\",\n  \"description\": \"Supplier Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/suppliers",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers"]
+            }
+          }
+        },
+        {
+          "name": "Update Supplier",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Supplier Name\",\n  \"contact\": \"Updated Contact\",\n  \"address\": \"Updated Address\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Supplier",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Supplier",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Supplier",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unit Types",
+      "item": [
+        {
+          "name": "Get All Unit Types",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/unitTypes?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "unitTypes"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Unit Type By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/unitTypes/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "unitTypes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Unit Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Unit Type Name\",\n  \"description\": \"Unit Type Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/unitTypes",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "unitTypes"]
+            }
+          }
+        },
+        {
+          "name": "Update Unit Type",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Unit Type Name\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/unitTypes/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "unitTypes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Unit Type",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/unitTypes/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "unitTypes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Unit Type",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/unitTypes/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "unitTypes", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Unit Type",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/unitTypes/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "unitTypes", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attributes",
+      "item": [
+        {
+          "name": "Get All Attributes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributes?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributes"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Attribute By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributes/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Attribute",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Attribute Name\",\n  \"description\": \"Attribute Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/attributes",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributes"]
+            }
+          }
+        },
+        {
+          "name": "Update Attribute",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Attribute Name\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/attributes/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Attribute",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributes/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Attribute",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributes/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributes", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Attribute",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributes/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributes", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attribute Values",
+      "item": [
+        {
+          "name": "Get All Attribute Values",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributeValues?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributeValues"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Attribute Value By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributeValues/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributeValues", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Attribute Value",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attribute_id\": 1,\n  \"value\": \"Attribute Value\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/attributeValues",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributeValues"]
+            }
+          }
+        },
+        {
+          "name": "Update Attribute Value",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attribute_id\": 1,\n  \"value\": \"Updated Attribute Value\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/attributeValues/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributeValues", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Attribute Value",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributeValues/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributeValues", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Attribute Value",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributeValues/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributeValues", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Attribute Value",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/attributeValues/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "attributeValues", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deposits",
+      "item": [
+        {
+          "name": "Get All Deposits",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/deposits?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "deposits"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Deposit By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/deposits/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "deposits", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Deposit",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deposit_category_id\": 1,\n  \"amount\": 100.00,\n  \"description\": \"Deposit Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/deposits",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "deposits"]
+            }
+          }
+        },
+        {
+          "name": "Update Deposit",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deposit_category_id\": 1,\n  \"amount\": 150.00,\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/deposits/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "deposits", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Deposit",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/deposits/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "deposits", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Deposit",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/deposits/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "deposits", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Deposit",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/deposits/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "deposits", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deposit Categories",
+      "item": [
+        {
+          "name": "Get All Deposit Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/depositCategories?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "depositCategories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Deposit Category By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/depositCategories/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "depositCategories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Deposit Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Deposit Category Name\",\n  \"description\": \"Deposit Category Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/depositCategories",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "depositCategories"]
+            }
+          }
+        },
+        {
+          "name": "Update Deposit Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Deposit Category Name\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/depositCategories/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "depositCategories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Deposit Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/depositCategories/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "depositCategories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Deposit Category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/depositCategories/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "depositCategories", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Deposit Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/depositCategories/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "depositCategories", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "item": [
+        {
+          "name": "Get All Expenses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenses?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Expense By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenses/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Expense",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expense_category_id\": 1,\n  \"amount\": 100.00,\n  \"description\": \"Expense Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/expenses",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses"]
+            }
+          }
+        },
+        {
+          "name": "Update Expense",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expense_category_id\": 1,\n  \"amount\": 150.00,\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/expenses/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Expense",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenses/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Expense",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenses/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Expense",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenses/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Expense Categories",
+      "item": [
+        {
+          "name": "Get All Expense Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenseCategories?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenseCategories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Expense Category By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenseCategories/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenseCategories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Expense Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Expense Category Name\",\n  \"description\": \"Expense Category Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/expenseCategories",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenseCategories"]
+            }
+          }
+        },
+        {
+          "name": "Update Expense Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Expense Category Name\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/expenseCategories/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenseCategories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Expense Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenseCategories/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenseCategories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Expense Category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenseCategories/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenseCategories", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Expense Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenseCategories/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenseCategories", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payment Methods",
+      "item": [
+        {
+          "name": "Get All Payment Methods",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/paymentMethods?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "paymentMethods"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Method By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/paymentMethods/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "paymentMethods", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Payment Method",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Payment Method Name\",\n  \"description\": \"Payment Method Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/paymentMethods",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "paymentMethods"]
+            }
+          }
+        },
+        {
+          "name": "Update Payment Method",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Payment Method Name\",\n  \"description\": \"Updated Description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/paymentMethods/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "paymentMethods", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Payment Method",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/paymentMethods/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "paymentMethods", "1"]
+            }
+          }
+        },
+        {
+          "name": "Restore Payment Method",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/paymentMethods/restore/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "paymentMethods", "restore", "1"]
+            }
+          }
+        },
+        {
+          "name": "Force Delete Payment Method",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/paymentMethods/forceDelete/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "paymentMethods", "forceDelete", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Adjustments",
+      "item": [
+        {
+          "name": "Get All Adjustments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/adjustments?page=1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "adjustments"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Adjustment By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/adjustments/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "adjustments", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Adjustment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_id\": 1,\n  \"warehouse_id\": 1,\n  \"quantity\": 10,\n  \"type\": \"in\",\n  \"reason\": \"Stock Adjustment Reason\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/adjustments",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "adjustments"]
+            }
+          }
+        },
+        {
+          "name": "Update Adjustment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_id\": 1,\n  \"warehouse_id\": 1,\n  \"quantity\": 15,\n  \"type\": \"in\",\n  \"reason\": \"Updated Adjustment Reason\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/adjustments/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "adjustments", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Adjustment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/adjustments/1",
+              "protocol": "http",
+              "host": ["{{base_url}}"],
+              "path": ["api", "adjustments", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
